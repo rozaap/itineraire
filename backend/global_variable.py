@@ -7,12 +7,13 @@ def globpath(path):
     return os.path.join(base_path, path)
 
 ### BOUDING LYON METROPOLE PATH ###
-bounding_metrop_path = globpath("./score_calculation_it/input_data/bounding_metrop.gpkg")
+#bounding_metrop_path = globpath("./score_calculation_it/input_data/bounding_metrop.gpkg")
 bounding_Villeurbanne_path = globpath("./score_calculation_it/input_data/bounding_vil.gpkg")
-Vil_network_bounding_path = globpath("./score_calculation_it/input_data/network.gpkg")
+
 
 ### NETWORK PATH ###
 metrop_network_bouding_path = globpath("./score_calculation_it/input_data/network/metrop_network_bounding.gpkg")
+vil_network_bounding_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
 
 ### GRAPH PATH ###
 final_network_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.gpkg")
@@ -20,7 +21,7 @@ final_network_pickle_path = globpath("./score_calculation_it/output_data/network
 final_network_multidigraph_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca_multidigraph.pickle")
 
 ### EDGES PATH ###
-edges_buffer_path = globpath("./score_calculation_it/input_data/network/edges_buffered_12_bounding.gpkg")
+edges_buffer_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
 edges_buffer_disolved_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_dissolved_path.gpkg")
 
 edges_buffer_arbres_prop_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_arbres_prop_bounding.gpkg")

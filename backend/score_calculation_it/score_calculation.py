@@ -147,7 +147,7 @@ def score_calculation_pipeline(meta_params):
         total_score(edges_buffer_scored_path, edges_buffer_total_score_path, score_columns)
         score_distance(edges_buffer_total_score_path, edges_buffer_total_score_distance_path,0.5,0.5)
         score_fraicheur(edges_buffer_total_score_distance_path, edges_buffer_total_score_distance_freshness_path)
-        create_graph(bounding_metrop_path, edges_buffer_total_score_distance_freshness_path, params["graph_path"])
+        create_graph(bounding_Villeurbanne_path, edges_buffer_total_score_distance_freshness_path, params["graph_path"])
 
         weights_path = "./weights_score.csv"
 

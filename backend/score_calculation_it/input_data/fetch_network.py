@@ -14,9 +14,7 @@ from global_variable import *
 def globpath(path):
     return os.path.join(base_path, path)
 
-### BOUDING LYON METROPOLE PATH ###
-bounding_Villeurbanne_path = "C:/Users/rgrandmais/Documents/Roland/Projet_villeurbanne/boundingbox2154.gpkg"
-Vil_network_bounding_path = "C:/Users/rgrandmais/Documents/Roland/Projet_villeurbanne/network.gpkg"
+
 #network_filters = "[\"highway\"][\"area\"!~\"yes\"][\"highway\"!~\"abandoned|bus_guideway|construction|cycleway|motorway|trunk|planned|platform|proposed|raceway|motorway_link|trunk_link|escape|busway\"][\"foot\"!~\"no\"][\"service\"!~\"private\"][\"sidewalk\"!~\"no\"]"
 
 def fetch_OSM_graph():
@@ -55,16 +53,14 @@ def bufferize(input_path, output_path, layer, buffer_size):
     layer_buffer.to_file(output_path, driver="GPKG", layer=layer)
 
 
-fetch_OSM_graph()
+choice = input("Voulez vous télécharger le réseau (NETWORK) et le bufferizer (BUFFER) ou faire les deux (ALL)? \n Veuillez saisir une des 3 possibilitées : NETWORk, BUFFER, ALL : \n")
 
-# choice = input("Voulez vous télécharger le réseau (NETWORK) et le bufferizer (BUFFER) ou faire les deux (ALL)? \n Veuillez saisir une des 3 possibilitées : NETWORk, BUFFER, ALL : \n")
-
-# if(choice == "ALL"):
-#     fetch_OSM_graph()
-#     bufferize(metrop_network_bouding_path, edges_buffer_path, "edges", 6.25)
-# elif(choice== "NETWORK"):
-#     fetch_OSM_graph()
-# elif(choice == "BUFFER"):
-#     bufferize(metrop_network_bouding_path, edges_buffer_path, "edges", 6.25)
-# else:
-#     print("Veuillez saisir un choix valide")
+if(choice == "ALL"):
+    fetch_OSM_graph()
+    bufferize(bounding_Villeurbanne_path, edges_buffer_path, "main.edges", 6.25)
+elif(choice== "NETWORK"):
+    fetch_OSM_graph()
+elif(choice == "BUFFER"):
+    bufferize(bounding_Villeurbanne_path, edges_buffer_path, "main.edges", 6.25)
+else:
+    print("Veuillez saisir un choix valide")
