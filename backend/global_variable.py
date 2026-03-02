@@ -8,6 +8,8 @@ def globpath(path):
 
 ### BOUDING LYON METROPOLE PATH ###
 bounding_metrop_path = globpath("./score_calculation_it/input_data/bounding_metrop.gpkg")
+bounding_Villeurbanne_path = globpath("./score_calculation_it/input_data/bounding_vil.gpkg")
+Vil_network_bounding_path = globpath("./score_calculation_it/input_data/network.gpkg")
 
 ### NETWORK PATH ###
 metrop_network_bouding_path = globpath("./score_calculation_it/input_data/network/metrop_network_bounding.gpkg")
