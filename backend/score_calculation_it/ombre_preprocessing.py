@@ -62,7 +62,7 @@ def calculate_shadows(): #eventuellement rajouter des paramètre pour selectionn
         network_edge["portion_ombre"] = means
     
 
-    # Ajuster le valeur pour les segments hors Villeurbanne
+    # Ajuster la valeur pour les segments hors Villeurbanne
     intersects_mask = network_edge.geometry.intersects(vil_area.union_all())
     non_intersect_mask = ~intersects_mask
     network_edge.loc[non_intersect_mask, "portion_ombre"] = 0
