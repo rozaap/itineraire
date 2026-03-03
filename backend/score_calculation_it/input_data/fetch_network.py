@@ -4,7 +4,11 @@ import geopandas as gpd
 import osmnx as ox
 import sys
 sys.path.append("../../")
-from global_variable import *
+#from global_variable import *
+
+bounding_Villeurbanne_path = "backend/score_calculation_it/input_data/bounding_vil.gpkg"
+vil_network_bounding_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
 
 """
     The bounding_Villeurbanne file contains the bounding of Villeurbanne. It is used to define graph query limit in the
@@ -33,15 +37,13 @@ def fetch_OSM_graph():
     #EPSG:3946 is the default projection system used by Villeurbanne.
     G = ox.project_graph(G, to_crs="EPSG:3946")
 
-    print(f"Saving graph into {Vil_network_bounding_path}")
-    ox.save_graph_geopackage(G, Vil_network_bounding_path)
+    print(f"Saving graph into {vil_network_bounding_path}")
+    ox.save_graph_geopackage(G, vil_network_bounding_path)
 
 def bufferize(input_path, output_path, layer, buffer_size):
     """Bufferize a layer according to a buffer_size and save the ouput file"""
     print("Reading edges from graph file")
     layer_gpd = gpd.read_file(input_path, layer=layer)
-
-    layer_gpd = layer_gpd.to_crs(3946)
 
     print('Buffering edges')
     buffered_features = layer_gpd.geometry.apply(lambda x: x.buffer(buffer_size))
@@ -50,17 +52,17 @@ def bufferize(input_path, output_path, layer, buffer_size):
     layer_buffer.crs = layer_gpd.crs
 
     print("Saving buffered edges")
-    layer_buffer.to_file(output_path, driver="GPKG", layer=layer)
+    layer_buffer.to_file(output_path, driver="GPKG", layer=layer+"_buffer")
 
 
 choice = input("Voulez vous télécharger le réseau (NETWORK) et le bufferizer (BUFFER) ou faire les deux (ALL)? \n Veuillez saisir une des 3 possibilitées : NETWORk, BUFFER, ALL : \n")
 
 if(choice == "ALL"):
     fetch_OSM_graph()
-    bufferize(bounding_Villeurbanne_path, edges_buffer_path, "main.edges", 6.25)
+    bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
 elif(choice== "NETWORK"):
     fetch_OSM_graph()
 elif(choice == "BUFFER"):
-    bufferize(bounding_Villeurbanne_path, edges_buffer_path, "main.edges", 6.25)
+    bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
 else:
     print("Veuillez saisir un choix valide")
