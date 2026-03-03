@@ -10,20 +10,27 @@ def globpath(path):
 #bounding_metrop_path = globpath("./score_calculation_it/input_data/bounding_metrop.gpkg")
 bounding_Villeurbanne_path = globpath("./score_calculation_it/input_data/bounding_vil.gpkg")
 
-
 ### NETWORK PATH ###
-metrop_network_bouding_path = globpath("./score_calculation_it/input_data/network/metrop_network_bounding.gpkg")
+#metrop_network_bouding_path = globpath("./score_calculation_it/input_data/network/metrop_network_bounding.gpkg")
 vil_network_bounding_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
 
 ### GRAPH PATH ###
-final_network_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.gpkg")
-final_network_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.pickle")
-final_network_multidigraph_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca_multidigraph.pickle")
+#final_network_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.gpkg")
+#final_network_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.pickle")
+#final_network_multidigraph_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca_multidigraph.pickle")
 
 ### EDGES PATH ###
 edges_buffer_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
 edges_buffer_disolved_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_dissolved_path.gpkg")
 
+### DATA PATH ### jour choisi 15 juillet
+shadows_08_path = globpath("./score_calculation_it/input_data/ombres/8h.tif")
+shadows_13_path = globpath("./score_calculation_it/input_data/ombres/13h.tif")
+shadows_18_path = globpath("./score_calculation_it/input_data/ombres/18h.tif")
+
+
+### EDGES PATH ###
+edges_buffer_disolved_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_dissolved_path.gpkg")
 edges_buffer_arbres_prop_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_arbres_prop_bounding.gpkg")
 edges_buffer_arbustes_prop_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_arbustes_prop_bounding.gpkg")
 edges_buffer_prairies_prop_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_prairies_prop_bounding.gpkg")
@@ -88,10 +95,10 @@ shadows_08_intersect_path = globpath("./score_calculation_it/output_data/ombres/
 shadows_13_intersect_path = globpath("./score_calculation_it/output_data/ombres/intersect_ombres_edges_13.gpkg")
 shadows_18_intersect_path = globpath("./score_calculation_it/output_data/ombres/intersect_ombres_edges_18.gpkg")
 
-shadows_path = globpath("./score_calculation_it/output_data/ombres/ombres_metrop.gpkg")
-shadows_08_path = globpath("./score_calculation_it/output_data/ombres/ombres_08_metrop.gpkg")
-shadows_13_path = globpath("./score_calculation_it/output_data/ombres/ombres_13_metrop.gpkg")
-shadows_18_path = globpath("./score_calculation_it/output_data/ombres/ombres_18_metrop.gpkg")
+# shadows_path = globpath("./score_calculation_it/output_data/ombres/ombres_metrop.gpkg")
+# shadows_08_path = globpath("./score_calculation_it/output_data/ombres/ombres_08_metrop.gpkg")
+# shadows_13_path = globpath("./score_calculation_it/output_data/ombres/ombres_13_metrop.gpkg")
+# shadows_18_path = globpath("./score_calculation_it/output_data/ombres/ombres_18_metrop.gpkg")
 
 #### EAUX ####
 eaux_path = globpath("./score_calculation_it/output_data/eaux/eaux.gpkg")
