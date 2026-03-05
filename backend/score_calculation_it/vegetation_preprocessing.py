@@ -13,7 +13,7 @@ create_folder("backend/score_calculation_it/output_data/vegetation_strat/")
 vegetation_path = "backend/score_calculation_it/input_data/Vegetation_strat_Vlb/Vegetation_strat_vlb.shp"
 edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
 vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-network_vegetation = "backend/score_calculation_it/output_data/vegetation_strat/network_Sanitaire.gpkg"
+network_vegetation = "backend/score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg"
 
 
 ###### VEGETATION STRATIFIEE PREPROCESSING ######
