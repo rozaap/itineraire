@@ -46,7 +46,7 @@ def calculate_shadows(): #eventuellement rajouter des paramètre pour selectionn
                 fill=0,
                 dtype=np.uint8
             )
-
+            
             touched = mask == 1
 
             if nodata is not None:
