@@ -8,7 +8,7 @@ sys.path.append("../../")
 
 bounding_Villeurbanne_path = "backend/score_calculation_it/input_data/bounding_vil.gpkg"
 vil_network_bounding_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 
 """
     The bounding_Villeurbanne file contains the bounding of Villeurbanne. It is used to define graph query limit in the

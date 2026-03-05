@@ -15,7 +15,7 @@ sys.path.append("../")
 ###### CREATE WORKING DIRECTORY FOR OMBRES ######
 create_folder("backend/score_calculation_it/output_data/ombre/")
 shadows_08_path ="backend/score_calculation_it/input_data/ombre/8h.tif"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 network_shadow_path = "backend/score_calculation_it/output_data/ombre/network_shadow.gpkg"
 vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
 

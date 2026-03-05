@@ -10,7 +10,7 @@ sys.path.append("../")
 ### CREATE WORKING DIRECTORY ###
 create_folder("./output_data/mobilier_urbain/")
 mob_urbain_path = "backend/score_calculation_it/input_data/Mobilier_urbain/Mobilierurbain.shp"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
 network_mob_urb = "backend/score_calculation_it/output_data/mobilier_urbain/network_mobilier_urbain.gpkg"
 

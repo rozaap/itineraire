@@ -15,7 +15,7 @@ sys.path.append("../")
 ###### CREATE WORKING DIRECTORY FOR TEMPERATURE ######
 create_folder("backend/score_calculation_it/output_data/temp/")
 temp_path ="backend/score_calculation_it/input_data/Temperature/villeurbanne25_LST2024_DistTempMean_3946.tiff"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 network_temp_path = "backend/score_calculation_it/output_data/temp/network_temp.gpkg"
 vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
 

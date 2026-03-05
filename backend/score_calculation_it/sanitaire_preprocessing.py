@@ -10,7 +10,7 @@ sys.path.append("../")
 ###### CREATE WORKING DIRECTORY FOR PARCS ET JARDINS ######
 create_folder("backend/score_calculation_it/output_data/Sanitaire/")
 sanitaire_path = "backend/score_calculation_it/input_data/sanitaires/Sanitaires.shp"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
 network_sanitaire = "backend/score_calculation_it/output_data/Sanitaire/network_Sanitaire.gpkg"
 
