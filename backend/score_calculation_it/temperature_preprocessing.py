@@ -10,14 +10,14 @@ from shapely.geometry import mapping
 import rasterio
 from rasterstats import zonal_stats
 sys.path.append("../")
-#from global_variable import *
+from global_variable import *
 
 ###### CREATE WORKING DIRECTORY FOR TEMPERATURE ######
 create_folder("backend/score_calculation_it/output_data/temp/")
-temp_path ="backend/score_calculation_it/input_data/Temperature/villeurbanne25_LST2024_DistTempMean_3946.tiff"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-network_temp_path = "backend/score_calculation_it/output_data/temp/network_temp.gpkg"
-vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
+# temp_path ="backend/score_calculation_it/input_data/Temperature/villeurbanne25_LST2024_DistTempMean_3946.tiff"
+# edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
+# network_temp_path = "backend/score_calculation_it/output_data/temp/network_temp.gpkg"
+# vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
 
 
 ###### TEMPERATURE PREPROCESSING ######
@@ -25,8 +25,7 @@ vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurban
 
 ### FUNCTION ###
 def calculate_temperature():
-    print ("parti")
-    network_edge = gpd.read_file(edges_buffer_path, layer = "edges_buffer")
+    network_edge = gpd.read_file(vil_network_bounding_path, layer = "edges_buffer")
     vil_area = gpd.read_file(vil_area_path)
     vil_area = vil_area.to_crs(3946)
 
@@ -55,4 +54,5 @@ def calculate_temperature():
 
     network_edge.to_file(network_temp_path, driver="GPKG", layer="network_shadow")
     
+
 calculate_temperature()

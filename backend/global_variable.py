@@ -12,7 +12,7 @@ bounding_Villeurbanne_path = globpath("./score_calculation_it/input_data/boundin
 
 ### NETWORK PATH ###
 #metrop_network_bouding_path = globpath("./score_calculation_it/input_data/network/metrop_network_bounding.gpkg")
-vil_network_bounding_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
+#vil_network_bounding_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
 
 ### GRAPH PATH ###
 #final_network_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca.gpkg")
@@ -20,13 +20,35 @@ vil_network_bounding_path = globpath("./score_calculation_it/input_data/vil_netw
 #final_network_multidigraph_pickle_path = globpath("./score_calculation_it/output_data/network/graph/final_network_P0_01O5At0_01Ar10C0_01E5Ca_multidigraph.pickle")
 
 ### EDGES PATH ###
-edges_buffer_path = globpath("./score_calculation_it/input_data/vil_network_bounding.gpkg")
-edges_buffer_disolved_path = globpath("./score_calculation_it/output_data/network/edges/edges_buffered_dissolved_path.gpkg")
+#edges_buffer_path = globpath("score_calculation_it/input_data/vil_network_bounding_buffer.gpkg")
+vil_network_bounding_path = globpath("score_calculation_it/input_data/vil_network_bounding.gpkg")
+
+vil_area_path = globpath("score_calculation_it/input_data/villeurbanne/villeurbanne.shp")
+bounding_Villeurbanne_path = globpath("score_calculation_it/input_data/bounding_vil.gpkg")
 
 ### DATA PATH ### jour choisi 15 juillet
-shadows_08_path = globpath("./score_calculation_it/input_data/ombres/8h.tif")
-shadows_13_path = globpath("./score_calculation_it/input_data/ombres/13h.tif")
-shadows_18_path = globpath("./score_calculation_it/input_data/ombres/18h.tif")
+shadows_08_path = globpath("score_calculation_it/input_data/ombre/8h.tif")
+shadows_13_path = globpath("score_calculation_it/input_data/ombre/13h.tif")
+shadows_18_path = globpath("score_calculation_it/input_data/ombre/18h.tif")
+network_shadow_path = globpath("score_calculation_it/output_data/ombre/network_shadow.gpkg")
+
+sanitaire_path = globpath("score_calculation_it/input_data/sanitaires/Sanitaires.shp")
+network_sanitaire_path = globpath("score_calculation_it/output_data/Sanitaire/network_Sanitaire.gpkg")
+
+mob_urbain_path = globpath("score_calculation_it/input_data/Mobilier_urbain/Mobilierurbain.shp")
+network_mob_urb_path = globpath("score_calculation_it/output_data/mobilier_urbain/network_mobilier_urbain.gpkg")
+
+vegetation_path = globpath("score_calculation_it/input_data/Vegetation_strat_Vlb/Vegetation_strat_vlb.shp")
+network_vegetation_path = globpath("score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg")
+
+temp_path = globpath("score_calculation_it/input_data/Temperature/villeurbanne25_LST2024_DistTempMean_3946.tiff")
+network_temp_path = globpath("score_calculation_it/output_data/temp/network_temp.gpkg")
+
+espacevert_path = globpath("score_calculation_it/input_data/EV_EspaceVert/EV_EspaceVert.shp")
+network_espacevert_path = globpath("score_calculation_it/output_data/EspaceVert/network_EspaceVert.gpkg")
+
+network_complet_path = globpath("score_calculation_it/output_data/network/network_complet.shp") #jkflg
+network_final_path = globpath("score_calculation_it/output_data/network/network_final.shp")
 
 
 ### EDGES PATH ###

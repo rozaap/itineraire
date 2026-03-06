@@ -4,11 +4,11 @@ import geopandas as gpd
 import osmnx as ox
 import sys
 sys.path.append("../../")
-#from global_variable import *
+from global_variable import *
 
-bounding_Villeurbanne_path = "backend/score_calculation_it/input_data/bounding_vil.gpkg"
-vil_network_bounding_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
+#bounding_Villeurbanne_path = "backend/score_calculation_it/input_data/bounding_vil.gpkg"
+#vil_network_bounding_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+#edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
 
 """
     The bounding_Villeurbanne file contains the bounding of Villeurbanne. It is used to define graph query limit in the
@@ -25,25 +25,26 @@ def fetch_OSM_graph():
     """This function load an OSM graph into the Metropole of Lyon \n
     """
     print("Reading bouding Villeurbanne")
-    bounding_Vil = gpd.read_file(bounding_Villeurbanne_path)
-    bounding_Vil = bounding_Vil.to_crs("4326")
+    vil_area = gpd.read_file(vil_area_path)
+    vil_area['geometry'] = vil_area.geometry.buffer(22)
+    vil_area = vil_area.to_crs("4326")
     
-    geometry = bounding_Vil["geometry"].iloc[0]
+    geometry = vil_area["geometry"].iloc[0]
 
-    print("Fetching Graph from Lyon Metropole")
+    print("Fetching Graph from Villeurbannne")
+
     #G = ox.graph_from_polygon(geometry, custom_filter=network_filters)
     G = ox.graph_from_polygon(geometry, network_type="walk")
-    print(bounding_Vil)
     #EPSG:3946 is the default projection system used by Villeurbanne.
     G = ox.project_graph(G, to_crs="EPSG:3946")
 
     print(f"Saving graph into {vil_network_bounding_path}")
     ox.save_graph_geopackage(G, vil_network_bounding_path)
 
-def bufferize(input_path, output_path, layer, buffer_size):
+def bufferize(input_path, output_path,layer, buffer_size):
     """Bufferize a layer according to a buffer_size and save the ouput file"""
     print("Reading edges from graph file")
-    layer_gpd = gpd.read_file(input_path, layer=layer)
+    layer_gpd = gpd.read_file(input_path, layer = layer)
 
     print('Buffering edges')
     buffered_features = layer_gpd.geometry.apply(lambda x: x.buffer(buffer_size))
@@ -52,17 +53,20 @@ def bufferize(input_path, output_path, layer, buffer_size):
     layer_buffer.crs = layer_gpd.crs
 
     print("Saving buffered edges")
-    layer_buffer.to_file(output_path, driver="GPKG", layer=layer+"_buffer")
+    layer_buffer.to_file(output_path, driver="GPKG", layer="edges_buffer")
 
-
-choice = input("Voulez vous télécharger le réseau (NETWORK) et le bufferizer (BUFFER) ou faire les deux (ALL)? \n Veuillez saisir une des 3 possibilitées : NETWORk, BUFFER, ALL : \n")
-
-if(choice == "ALL"):
+def fetch_network ():
     fetch_OSM_graph()
-    bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
-elif(choice== "NETWORK"):
-    fetch_OSM_graph()
-elif(choice == "BUFFER"):
-    bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
-else:
-    print("Veuillez saisir un choix valide")
+    bufferize(vil_network_bounding_path, vil_network_bounding_path,"edges", 6.25)
+
+# choice = input("Voulez vous télécharger le réseau (NETWORK) et le bufferizer (BUFFER) ou faire les deux (ALL)? \n Veuillez saisir une des 3 possibilitées : NETWORk, BUFFER, ALL : \n")
+
+# if(choice == "ALL"):
+#     fetch_OSM_graph()
+#     bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
+# elif(choice== "NETWORK"):
+#     fetch_OSM_graph()
+# elif(choice == "BUFFER"):
+#     bufferize(vil_network_bounding_path, edges_buffer_path, "edges", 6.25)
+# else:
+#     print("Veuillez saisir un choix valide")

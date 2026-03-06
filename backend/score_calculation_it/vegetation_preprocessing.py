@@ -6,23 +6,20 @@ import os
 from data_utils import *
 import sys
 sys.path.append("../")
-#from global_variable import *
+from global_variable import *
 
 ###### CREATE WORKING DIRECTORY FOR VEGETATION #######
 create_folder("backend/score_calculation_it/output_data/vegetation_strat/")
-vegetation_path = "backend/score_calculation_it/input_data/Vegetation_strat_Vlb/Vegetation_strat_vlb.shp"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-network_vegetation = "backend/score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg"
+# vegetation_path = "backend/score_calculation_it/input_data/Vegetation_strat_Vlb/Vegetation_strat_vlb.shp"
+# edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
+# vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
+# network_vegetation = "backend/score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg"
 
 
 ###### VEGETATION STRATIFIEE PREPROCESSING ######
-choice = 'OUI'#input("""
-   # Souhaitez-vous mettre à jour le réseau pondéré par les parcs ? OUI ou NON
-#""")
-if(choice=="OUI"):
+def vegetation():
     vegetation = gpd.read_file(vegetation_path)
-    network = gpd.read_file(edges_buffer_path, layer="edges_buffer")
+    network = gpd.read_file(vil_network_bounding_path, layer="edges_buffer")
 
     # Harmoniser CRS
     if network.crs != vegetation.crs:
@@ -55,4 +52,6 @@ if(choice=="OUI"):
     network["pct_vegetation"] = network["pct_vegetation"].fillna(0)
     
     # Sauvegarder
-    network.to_file(network_vegetation, driver="GPKG")
+    network.to_file(network_vegetation_path, driver="GPKG")
+
+vegetation()

@@ -6,21 +6,23 @@ import pandas as pd
 from data_utils import *
 import sys
 sys.path.append("../")
-#from global_variable import *
+from global_variable import *
 
 #%%
 ###### NETWORK SCORE CALCULATION #######
 create_folder("./output_data/network/graph/")
-network_complet_path = "backend/score_calculation_it/output_data/network/network_complet.shp"
-network_lineaire_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
-network_final_path = "backend/score_calculation_it/output_data/network/network_final.shp"
+# network_complet_path = "backend/score_calculation_it/output_data/network/network_complet.shp"
+# network_lineaire_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
+# network_final_path = "backend/score_calculation_it/output_data/network/network_final.shp"
 
 ### GLOBAL VARIABLES ###
-network_final = gpd.read_file(network_complet_path) 
-network_lineaire = gpd.read_file(network_lineaire_path, layer = "edges") 
+
 ### FUNCTIONS ###
 
 def ponderer_all():
+    network_final = gpd.read_file(network_complet_path) 
+    network_lineaire = gpd.read_file(vil_network_bounding_path, layer = "edges") 
+
     fresh_value = 0
     for index, row in network_final.iterrows():
         value_ombre_8h = abs(row["shad_8h"]*8-800)

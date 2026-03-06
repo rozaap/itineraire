@@ -5,26 +5,23 @@ import pandas as pd
 from data_utils import *
 import sys
 sys.path.append("../")
-#from global_variable import *
+from global_variable import *
 
 ### CREATE WORKING DIRECTORY ###
 create_folder("./output_data/mobilier_urbain/")
-mob_urbain_path = "backend/score_calculation_it/input_data/Mobilier_urbain/Mobilierurbain.shp"
-edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-network_mob_urb = "backend/score_calculation_it/output_data/mobilier_urbain/network_mobilier_urbain.gpkg"
+# mob_urbain_path = "backend/score_calculation_it/input_data/Mobilier_urbain/Mobilierurbain.shp"
+# edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
+# vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
+# network_mob_urb = "backend/score_calculation_it/output_data/mobilier_urbain/network_mobilier_urbain.gpkg"
 
 ###### EAUX PREPROCESSING ######
 """Les données proviennent de la mairie de Villeurbanne"""
 
 ### SCRIPT ###
-choice = input("""
-#    Souhaitez-vous mettre à jour le réseau pondéré par le mobilier urbain ? OUI ou NON
-#""")
 
-if (choice =="OUI"):
+def mob_urbain():
     mob_urbain = gpd.read_file(mob_urbain_path)
-    network = gpd.read_file(edges_buffer_path, layer="edges_buffer")
+    network = gpd.read_file(vil_network_bounding_path, layer="edges_buffer")
 
     if network.crs != mob_urbain.crs:
         mob_urbain = mob_urbain.to_crs(network.crs)
@@ -45,7 +42,7 @@ if (choice =="OUI"):
         network.loc[idx, col_name] = 1
 
     # Sauvegarder
-    network.to_file(network_mob_urb, driver="GPKG")
+    network.to_file(network_mob_urb_path, driver="GPKG")
 
-    
+mob_urbain()   
     
