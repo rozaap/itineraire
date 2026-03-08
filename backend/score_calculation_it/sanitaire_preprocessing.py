@@ -5,15 +5,17 @@ import os
 from data_utils import *
 import sys
 sys.path.append("../")
+#Appel des données
 from global_variable import *
 
-###### CREATE WORKING DIRECTORY FOR PARCS ET JARDINS ######
+###### CREATE WORKING DIRECTORY FOR SANITAIRE ######
 create_folder("backend/score_calculation_it/output_data/Sanitaire/")
-#sanitaire_path = "backend/score_calculation_it/input_data/sanitaires/Sanitaires.shp"
-#edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-#vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-#network_sanitaire = "backend/score_calculation_it/output_data/Sanitaire/network_Sanitaire.gpkg"
 
+###### SANITAIRE PREPROCESSING ######
+"""Les données proviennent de la mairie de Villeurbanne """
+
+### SCRIPT ###
+# Ce script permet de vérifier la présence ou non des sanitaires sur les différents segments de la ville
 
 
 def sanitaire():
@@ -32,7 +34,7 @@ def sanitaire():
     # Récupérer les index du network concernés
     idx = intersections.index.unique()
 
-    # Ajouter colonne au network
+    # Ajouter colonne au réseau
     network["sanitaire_present"] = 0
     network.loc[idx, "sanitaire_present"] = 1
 

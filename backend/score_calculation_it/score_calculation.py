@@ -1,4 +1,3 @@
-#%%
 import os
 os.environ['USE_PYGEOS'] = '0'
 import geopandas as gpd
@@ -6,14 +5,11 @@ import pandas as pd
 from data_utils import *
 import sys
 sys.path.append("../")
+#Appel des données
 from global_variable import *
 
-#%%
 ###### NETWORK SCORE CALCULATION #######
 create_folder("./output_data/network/graph/")
-# network_complet_path = "backend/score_calculation_it/output_data/network/network_complet.shp"
-# network_lineaire_path = "backend/score_calculation_it/input_data/vil_network_bounding.gpkg"
-# network_final_path = "backend/score_calculation_it/output_data/network/network_final.shp"
 
 ### GLOBAL VARIABLES ###
 
@@ -25,6 +21,7 @@ def ponderer_all():
 
     fresh_value = 0
     for index, row in network_final.iterrows():
+        #Pondération arbitraire
         value_ombre_8h = abs(row["shad_8h"]*8-800)
         value_ombre_13h = abs(row["shad_13h"]*8-800)
         value_ombre_18h = abs(row["shad_18h"]*8-800)
@@ -37,6 +34,7 @@ def ponderer_all():
         value_vegetation = abs(row["pct_vegeta"]*8-800)
         value_temp = (row["temp_moy"]+7)*5
 
+        #Code pour des calculs plus complexe éventuels
         # value_ombre = ponderer_ombre(index)
         # value_brumi = ponderer_brumi(index)
         # value_assise = ponderer_assise(index)
@@ -53,6 +51,7 @@ def ponderer_all():
         network_final.loc[index, "fresh_8h"] = fresh_8h
         network_final.loc[index, "fresh_13h"] = fresh_13h
         network_final.loc[index, "fresh_18h"] = fresh_18h
+        #Création des poids qui seront utilisé par l'itinéraire
         network_final["weight08"]= network_final["length"]*network_final["fresh_8h"]
         network_final["weight13"]= network_final["length"]*network_final["fresh_13h"]
         network_final["weight18"]= network_final["length"]*network_final["fresh_18h"]

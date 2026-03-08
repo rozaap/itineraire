@@ -6,33 +6,35 @@ import os
 from data_utils import *
 import sys
 sys.path.append("../")
+#Appel des données
 from global_variable import *
 
 ###### CREATE WORKING DIRECTORY FOR VEGETATION #######
 create_folder("backend/score_calculation_it/output_data/vegetation_strat/")
-# vegetation_path = "backend/score_calculation_it/input_data/Vegetation_strat_Vlb/Vegetation_strat_vlb.shp"
-# edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-# vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-# network_vegetation = "backend/score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg"
 
+###### VEGETATION PREPROCESSING ######
+"""Les données proviennent de la mairie de Villeurbanne """
+
+### SCRIPT ###
+# Ce script permet de calculer le pourcentage de végatation sur chaque différents segments de la ville
 
 ###### VEGETATION STRATIFIEE PREPROCESSING ######
 def vegetation():
     vegetation = gpd.read_file(vegetation_path)
     network = gpd.read_file(vil_network_bounding_path, layer="edges_buffer")
 
-    # Harmoniser CRS
+    # Vérification de la projection
     if network.crs != vegetation.crs:
         vegetation = vegetation.to_crs(network.crs)
 
-    # 🔑 Ajouter un ID unique AVANT overlay
+    # Ajouter d'un ID unique
     network = network.reset_index(drop=True)
     network["net_id"] = network.index
 
-    # Surface totale
+    # Calcul des surfaces
     network["area_total"] = network.geometry.area
 
-    # Intersection réelle
+    # Intersection 
     intersection = gpd.overlay(network, vegetation, how="intersection")
 
     # Surface intersectée
@@ -44,7 +46,7 @@ def vegetation():
         .sum()
     )
 
-    # Calcul %
+    # Calcul du poucentage de végétation
     network["pct_vegetation"] = (
        network["net_id"].map(area_sum) / network["area_total"]*100
     )

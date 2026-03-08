@@ -5,14 +5,18 @@ import os
 from data_utils import *
 import sys
 sys.path.append("../")
+#Appel des données
 from global_variable import *
 
 ###### CREATE WORKING DIRECTORY FOR PARCS ET JARDINS ######
 create_folder("backend/score_calculation_it/output_data/EspaceVert/")
-# espacevert_path = "backend/score_calculation_it/input_data/EV_EspaceVert/EV_EspaceVert.shp"
-# edges_buffer_path = "backend/score_calculation_it/input_data/vil_network_bounding_buffer.gpkg"
-# vil_area_path = "backend/score_calculation_it/input_data/villeurbanne/villeurbanne.shp"
-# network_espacevert = "backend/score_calculation_it/output_data/EspaceVert/network_EspaceVert.gpkg"
+
+###### PARC PREPROCESSING ######
+"""Les données proviennent de la mairie de Villeurbanne """
+
+### SCRIPT ###
+# Ce script permet de vérifier la présence ou non des parcs différents segments de la ville
+
 
 def parc():
     espacevert = gpd.read_file(espacevert_path)
@@ -30,7 +34,7 @@ def parc():
     # Récupérer les index du network concernés
     idx = intersections.index.unique()
 
-    # Ajouter colonne au network
+    # Ajouter colonne au réseau
     network["parc_present"] = 0
     network.loc[idx, "parc_present"] = 1
 

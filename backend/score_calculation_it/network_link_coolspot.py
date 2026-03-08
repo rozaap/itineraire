@@ -6,21 +6,13 @@ import os
 from data_utils import *
 import sys
 sys.path.append("../")
+#Appel des données
 from global_variable import *
 
-###### CREATE WORKING DIRECTORY FOR VEGETATION #######
+###### CREATE WORKING DIRECTORY FOR UNITING ALL DATA #######
 create_folder("backend/score_calculation_it/output_data/network/")
 
-# network_mob_urb_path = "backend/score_calculation_it/output_data/mobilier_urbain/network_mobilier_urbain.gpkg"
-# network_espacevert_path = "backend/score_calculation_it/output_data/EspaceVert/network_EspaceVert.gpkg"
-# network_shadow_path = "backend/score_calculation_it/output_data/ombre/network_shadow.gpkg"
-# network_sanitaire_path = "backend/score_calculation_it/output_data/Sanitaire/network_Sanitaire.gpkg"
-# network_vegetation_path = "backend/score_calculation_it/output_data/vegetation_strat/network_Vegetation.gpkg"
-# network_temp_path = "backend/score_calculation_it/output_data/temp/network_temp.gpkg"
-
-# network_final_path = "backend/score_calculation_it/output_data/network/network_complet.shp"
-
-###### VEGETATION STRATIFIEE PREPROCESSING ######
+###### COUCHE COMPLETE PREPROCESSING ######
 def link_data_together():
     network_shadow = gpd.read_file(network_shadow_path)
     network_mob_urb = gpd.read_file(network_mob_urb_path)
