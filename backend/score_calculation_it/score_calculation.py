@@ -17,7 +17,9 @@ create_folder("./output_data/network/graph/")
 
 def ponderer_all():
     network_final = gpd.read_file(network_complet_path) 
-    network_lineaire = gpd.read_file(vil_network_bounding_path, layer = "edges") 
+    network_lineaire = gpd.read_file(vil_network_bounding_path, layer = "edges")
+    vil_area = gpd.read_file(vil_area_path)
+    vil_area = vil_area.to_crs(3946)
 
     fresh_value = 0
     for index, row in network_final.iterrows():
@@ -52,9 +54,10 @@ def ponderer_all():
         network_final.loc[index, "fresh_13h"] = fresh_13h
         network_final.loc[index, "fresh_18h"] = fresh_18h
         #Création des poids qui seront utilisé par l'itinéraire
-        network_final["weight08"]= network_final["length"]*network_final["fresh_8h"]
-        network_final["weight13"]= network_final["length"]*network_final["fresh_13h"]
-        network_final["weight18"]= network_final["length"]*network_final["fresh_18h"]
+        network_final["weight08"]= network_final["length"]*network_final["fresh_8h"]/100
+        network_final["weight13"]= network_final["length"]*network_final["fresh_13h"]/100
+        network_final["weight18"]= network_final["length"]*network_final["fresh_18h"]/100
+
     
     col_freshness = ["u", "v", "fresh_8h", "fresh_13h", "fresh_18h","weight08","weight13","weight18"] 
     col_freshness_subset = network_final[col_freshness]
@@ -66,6 +69,12 @@ def ponderer_all():
         right_on=["u","v"]
     )
     
+    intersects_mask = network_lineaire_final.geometry.intersects(vil_area.union_all())
+    non_intersect_mask = ~intersects_mask
+    network_lineaire_final.loc[non_intersect_mask, "weight08"] = 100000
+    network_lineaire_final.loc[non_intersect_mask, "weight13"] = 100000
+    network_lineaire_final.loc[non_intersect_mask, "weight18"] = 100000
+    network_lineaire_final.loc[non_intersect_mask, "length"] = 100000
     
 
     network_lineaire_final.to_file(network_final_path, driver="ESRI Shapefile")
