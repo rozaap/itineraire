@@ -76,7 +76,6 @@ def ponderer_all():
     network_lineaire_final.loc[non_intersect_mask, "weight18"] = 100000
     network_lineaire_final.loc[non_intersect_mask, "length"] = 100000
     
-
     network_lineaire_final.to_file(network_final_path, driver="ESRI Shapefile")
 
 ponderer_all()

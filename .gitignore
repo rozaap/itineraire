@@ -1,39 +1,9 @@
 #Project files to ignore
-new_wms_layers
 data/
 cache/
 optimization_files/
 
-backend/score_calculation_it/output_data/network/edges/
-backend/score_calculation_it/output_data/bancs/
-backend/score_calculation_it/output_data/eaux/
-backend/score_calculation_it/output_data/fontaines/
-backend/score_calculation_it/output_data/parcs/
-backend/score_calculation_it/output_data/toilettes/
-backend/score_calculation_it/output_data/vegetation/
-backend/score_calculation_backup/
-
-backend/score_calculation_it/input_data/bancs/
-backend/score_calculation_it/input_data/eaux/
-backend/score_calculation_it/input_data/fontaines/
-backend/score_calculation_it/input_data/toilettes/
-# backend/score_calculation_it/input_data/vegetation/
-backend/score_calculation_it/input_data/parcs/
-backend/score_calculation_it/input_data/temperature/
-backend/score_calculation_it/input_data/network/
-backend/score_calculation_it/input_data/batiments/
-backend/score_calculation_it/input_data/cache/
-backend/score_calculation_it/input_data/arbres/
-backend/score_calculation_it/input_data/fontaines_ornementales/
-backend/score_calculation_it/input_data/fontaines_potables/
-
-backend/score_calculation_it/input_data/studies_zones/
-backend/score_calculation_it/output_data/studies_zones/
-backend/score_calculation_it/output_data/network/*
-
 backend/score_calculation_it/output_data/
-
-!backend/score_calculation_it/output_data/network/graph/final_network_bounding_no_poi_15.gpkg
 
 
 # Byte-compiled / optimized / DLL files
