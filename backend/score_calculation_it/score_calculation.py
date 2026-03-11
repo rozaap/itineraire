@@ -22,90 +22,68 @@ def ponderer_all():
     vil_area = vil_area.to_crs(3946)
 
     fresh_value = 0
-    for index, row in network_final.iterrows():
-        #Pondération arbitraire
-        value_ombre_8h = abs(row["shad_8h"]*8-800)
-        value_ombre_13h = abs(row["shad_13h"]*8-800)
-        value_ombre_18h = abs(row["shad_18h"]*8-800)
-        value_brumi = abs(row["brumisateu"]*20-20)
-        value_assise = abs(row["assise"]*2-2)
-        value_borne_font = abs(row["borne_font"]*10-10)
-        value_fontaine = abs(row["fontaine"]*10-10)
-        value_parc = abs(row["parc_prese"]*30-30)
-        value_sanitaire = abs(row["sanitaire_"]*10-10)
-        value_vegetation = abs(row["pct_vegeta"]*8-800)
-        value_temp = (row["temp_moy"]+7)*5
+    #coef 10 (donnée en %)
+    network_final["value_ombre_8h"] = abs(network_final["shad_8h"]-100)
+    network_final["value_ombre_13h"] = abs(network_final["shad_13h"]-100)
+    network_final["value_ombre_18h"] = abs(network_final["shad_18h"]-100)
+    #coef 2
+    network_final["value_assise"] = abs(network_final["assise"]*20-20)
+    network_final["value_fontaine"] = abs(network_final["fontaine"]*20-20)
+    #coef 7
+    network_final["value_brumi"] = abs(network_final["brumisateu"]*70-70)
+    network_final["value_borne_font"] = abs(network_final["borne_font"]*70-70)
+    network_final["value_sanitaire"] = abs(network_final["sanitaire_"]*70-70)
+    #coef 3
+    network_final["value_parc"] = abs(network_final["parc_prese"]*30-30)
+    #coef 8 (donnée en %)
+    network_final["value_vegetation"] = abs(network_final["pct_vegeta"]-100)*0.8
+    #coef 6 (valeur allant de 0 à 14 or 7*4.3=60.2)
+    network_final["value_temp"] = (network_final["temp_moy"]+7)*4.3
 
-        #Code pour des calculs plus complexe éventuels
-        # value_ombre = ponderer_ombre(index)
-        # value_brumi = ponderer_brumi(index)
-        # value_assise = ponderer_assise(index)
-        # value_borne_font = ponderer_borne_font(index)
-        # value_fontaine = ponderer_fontaine(index)
-        # value_parc = ponderer_parc_present(index)
-        # value_sanitaire = ponderer_sanitaire_present(index)
-        # value_vegetation = ponderer_vegetation_present(index)
-        # value_temp = ponderer_temp_present(index)
+    network_final["fresh_8h"] = (network_final["value_ombre_8h"] + network_final["value_brumi"]+ network_final["value_assise"]
+    + network_final["value_borne_font"]+ network_final["value_fontaine"]+ network_final["value_parc"]+ network_final["value_sanitaire"]
+    + network_final["value_vegetation"]+ network_final["value_temp"])
 
-        fresh_8h = value_ombre_8h+value_brumi+value_assise+value_borne_font+value_fontaine+value_parc+value_sanitaire+value_vegetation+ value_temp
-        fresh_13h = value_ombre_13h+value_brumi+value_assise+value_borne_font+value_fontaine+value_parc+value_sanitaire+value_vegetation+ value_temp
-        fresh_18h = value_ombre_18h+value_brumi+value_assise+value_borne_font+value_fontaine+value_parc+value_sanitaire+value_vegetation+ value_temp
-        network_final.loc[index, "fresh_8h"] = fresh_8h
-        network_final.loc[index, "fresh_13h"] = fresh_13h
-        network_final.loc[index, "fresh_18h"] = fresh_18h
-        #Création des poids qui seront utilisé par l'itinéraire
-        network_final["weight08"]= network_final["length"]*network_final["fresh_8h"]/100
-        network_final["weight13"]= network_final["length"]*network_final["fresh_13h"]/100
-        network_final["weight18"]= network_final["length"]*network_final["fresh_18h"]/100
+    network_final["fresh_13h"] = (network_final["value_ombre_13h"] + network_final["value_brumi"]+ network_final["value_assise"]
+    + network_final["value_borne_font"]+ network_final["value_fontaine"]+ network_final["value_parc"]+ network_final["value_sanitaire"]
+    + network_final["value_vegetation"]+ network_final["value_temp"])
+
+    network_final["fresh_18h"] = (network_final["value_ombre_18h"] + network_final["value_brumi"]+ network_final["value_assise"]
+    + network_final["value_borne_font"]+ network_final["value_fontaine"]+ network_final["value_parc"]+ network_final["value_sanitaire"]
+    + network_final["value_vegetation"]+ network_final["value_temp"])
+
+    #Création des poids qui seront utilisé par l'itinéraire
+    network_final["weight08"]= network_final["length"]*network_final["fresh_8h"]/100
+    network_final["weight13"]= network_final["length"]*network_final["fresh_13h"]/100
+    network_final["weight18"]= network_final["length"]*network_final["fresh_18h"]/100
 
     
-    col_freshness = ["u", "v", "fresh_8h", "fresh_13h", "fresh_18h","weight08","weight13","weight18"] 
+    col_freshness = ["u", "v","key", "fresh_8h", "fresh_13h", "fresh_18h","weight08","weight13","weight18"] 
     col_freshness_subset = network_final[col_freshness]
 
     network_lineaire_final = network_lineaire.merge(
         col_freshness_subset,
         how="left",
-        left_on=["u","v"],
-        right_on=["u","v"]
+        left_on=["u","v","key"],
+        right_on=["u","v","key"]
     )
     
+    # Dissuader le passage par l'extérieur de la commune
     intersects_mask = network_lineaire_final.geometry.intersects(vil_area.union_all())
     non_intersect_mask = ~intersects_mask
-    network_lineaire_final.loc[non_intersect_mask, "weight08"] = 100000
-    network_lineaire_final.loc[non_intersect_mask, "weight13"] = 100000
-    network_lineaire_final.loc[non_intersect_mask, "weight18"] = 100000
-    network_lineaire_final.loc[non_intersect_mask, "length"] = 100000
+    network_lineaire_final.loc[non_intersect_mask, "weight08"] += 100
+    network_lineaire_final.loc[non_intersect_mask, "weight13"] += 100
+    network_lineaire_final.loc[non_intersect_mask, "weight18"] += 100
+    network_lineaire_final.loc[non_intersect_mask, "length"] += 100
+    
+    # Empêcher le passage par le périph
+    highway = network_lineaire_final["highway"] == "truck"
+    network_lineaire_final.loc[highway, "weight08"] += 1000
+    network_lineaire_final.loc[highway, "weight13"] += 1000
+    network_lineaire_final.loc[highway, "weight18"] += 1000
+    network_lineaire_final.loc[highway, "length"] += 1000
     
     network_lineaire_final.to_file(network_final_path, driver="ESRI Shapefile")
 
 ponderer_all()
-
-
-
-# def ponderer_ombre(index):
-#     return (abs(network_final.loc[index, "portion_om"]*8-800))
-
-# def ponderer_brumi(index):
-#     return (abs(network_final.loc[index, "brumisateu"]*20-20))
-
-# def ponderer_assise(index):
-#     return (abs(network_final.loc[index, "assise"]*2-2))
-
-# def ponderer_borne_font(index):
-#     return (abs(network_final.loc[index, "borne_font"]*10-10))
-
-# def ponderer_fontaine(index):
-#     return (abs(network_final.loc[index, "fontaine"]*10-10))
-
-# def ponderer_parc_present(index):
-#     return (abs(network_final.loc[index, "parc_prese"]*30-30))
-
-# def ponderer_sanitaire_present(index):
-#     return (abs(network_final.loc[index, "sanitaire_"]*10-10))
-
-# def ponderer_vegetation_present(index):
-#     return (abs(network_final.loc[index, "pct_vegeta"]*8-800))
-
-# def ponderer_temp_present(index):
-#     return ((network_final.loc[index, "temp_moy"]+7)*5)
 

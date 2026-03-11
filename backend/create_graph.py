@@ -8,14 +8,14 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "score_calculation_it", "input_data")))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "score_calculation_it")))
 # Maintenant Python peut trouver fetch_network
-# from fetch_network import fetch_network
-# from ombre_preprocessing import calculate_shadows
-# from mobilier_urbain_preprocessing import mob_urbain
-# from sanitaire_preprocessing import sanitaire
-# from vegetation_preprocessing import vegetation
-# from temperature_preprocessing import calculate_temperature
-#from parcs_jardins_preprocessing import parc
-#from network_link_coolspot import link_data_together
+#from fetch_network import fetch_network
+from ombre_preprocessing import calculate_shadows
+from mobilier_urbain_preprocessing import mob_urbain
+from sanitaire_preprocessing import sanitaire
+from vegetation_preprocessing import vegetation
+from temperature_preprocessing import calculate_temperature
+from parcs_jardins_preprocessing import parc
+from network_link_coolspot import link_data_together
 from score_calculation import ponderer_all
 
 
@@ -27,13 +27,13 @@ def create_graph():
     if (choice_complet == "OUI"):
         # COMMENTER LES DONNEES NON MODIFIE
         #fetch_network()
-        #calculate_shadows()
-        #mob_urbain()
-        #sanitaire()
-        #vegetation()
-        #calculate_temperature()
-        #parc()
-        #link_data_together()
+        calculate_shadows()
+        mob_urbain()
+        sanitaire()
+        vegetation()
+        calculate_temperature()
+        parc()
+        link_data_together()
         ponderer_all()
     else : 
         choice = input("""

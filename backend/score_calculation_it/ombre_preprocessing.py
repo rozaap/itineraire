@@ -122,7 +122,7 @@ def calculate_shadows():
     #Ajustement des valeurs pour avoir un pourcentage
     network_edge["shad_8h"]=network_edge["shad_8h"]/255*100
     network_edge["shad_13h"]=network_edge["shad_13h"]/255*100
-    network_edge["shad_18h"]=network_edge["shad_18h"]/255*
+    network_edge["shad_18h"]=network_edge["shad_18h"]/255*100
     
     #Sortie
     network_edge.to_file(network_shadow_path, driver="GPKG", layer="network_shadow")

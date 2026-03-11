@@ -20,7 +20,7 @@ def fetch_OSM_graph():
     """
     print("Reading bouding Villeurbanne")
     vil_area = gpd.read_file(vil_area_path)
-    vil_area['geometry'] = vil_area.geometry.buffer(22)
+    vil_area['geometry'] = vil_area.geometry.buffer(30)
     vil_area = vil_area.to_crs("4326")
     
     geometry = vil_area["geometry"].iloc[0]

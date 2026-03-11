@@ -45,14 +45,10 @@ def calculate_temperature():
     )
     network_edge["temp_moy"] = [s["mean"] for s in stats]
 
-    # Remplacer uniquement les polygones hors Villeurbanne par 40 (pour avoir une valeur haute et ainsi éviter d'avoir un itinéraire hors zone d'étude)
-    intersects_mask = network_edge.geometry.intersects(vil_area.union_all())
-    non_intersect_mask = ~intersects_mask
-    network_edge.loc[non_intersect_mask, "temp_moy"] = 40
 
-    # Remplacer les valeurs None restantes par 40 (hors de Villeurbanne)
+    # Remplacer les valeurs None (hors de Villeurbanne) restantes par 7 (valeur maximale de température)
     mask = network_edge['temp_moy'].isna()
-    network_edge.loc[mask, 'temp_moy'] = 40
+    network_edge.loc[mask, 'temp_moy'] = 7
 
     network_edge.to_file(network_temp_path, driver="GPKG", layer="network_shadow")
     
