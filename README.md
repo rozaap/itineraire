@@ -42,14 +42,14 @@ pip install -r requirements.txt
 
 Avant de lancer le code il est important de télécharger certaines données nécessaires au bon fonctionnement de l'application, et les mettre à leur place :
 
-Ombres 8h: "backend\score_calculation_it\input_data\ombre\8h.tif"  
-Ombres 13h: "backend\score_calculation_it\input_data\ombre\13h.tif"  
-Ombres 18h: "backend\score_calculation_it\input_data\ombre\18h.tif"  
-Temperature: "backend\score_calculation_it\input_data\Temperature\villeurbanne25_LST2024_DistTempMean_3946.tiff"  
-Végétation stratifié: "backend\score_calculation_it\input_data\Vegetation_strat_Vlb\Vegetation_strat_vlb.shp"  
-Mobilier urbain: "backend\score_calculation_it\input_data\Mobilier_urbain\Mobilierurbain.shp"  
-Sanitaires: "backend\score_calculation_it\input_data\sanitaires\Sanitaires.shp"  
-Parc: "backend\score_calculation_it\input_data\EV_EspaceVert\EV_EspaceVert.shp"  
+- Ombres 8h: "backend\score_calculation_it\input_data\ombre\8h.tif"  
+- Ombres 13h: "backend\score_calculation_it\input_data\ombre\13h.tif"  
+- Ombres 18h: "backend\score_calculation_it\input_data\ombre\18h.tif"  
+- Temperature: "backend\score_calculation_it\input_data\Temperature\villeurbanne25_LST2024_DistTempMean_3946.tiff"  
+- Végétation stratifié: "backend\score_calculation_it\input_data\Vegetation_strat_Vlb\Vegetation_strat_vlb.shp"  
+- Mobilier urbain: "backend\score_calculation_it\input_data\Mobilier_urbain\Mobilierurbain.shp"  
+- Sanitaires: "backend\score_calculation_it\input_data\sanitaires\Sanitaires.shp"  
+- Parc: "backend\score_calculation_it\input_data\EV_EspaceVert\EV_EspaceVert.shp"  
 
 Afin de lancer le code, se positionner à la racine du dossier backend et exécuter la commande suivante : 
 
@@ -92,11 +92,11 @@ Cette donnée est indispensable et à récupérer à partir d'OpenStreetMap et l
 La pondération du graphe ne peut se faire que si l'ensemble des sous-réseaux existent (et ont été mis à jour au besoin). La pondération du graphe est à renseigner directement dans le fichier **score_calculation.py**.
 
 Pondération choisie : 
-Arbres/arbuste = 8
-Parc = 3
-Ombre = 10
-Température = 6
-Eau (bornes fontaines, sanitaires) = 7
-Banc, fontaines = 2
+- Arbres/arbuste = 8  
+- Parc = 3  
+- Ombre = 10  
+- Température = 6  
+- Eau (bornes fontaines, sanitaires) = 7  
+- Banc, fontaines = 2
 
 
