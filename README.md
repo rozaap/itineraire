@@ -1,44 +1,5 @@
 # Pause fraîcheur à Villeurbanne
 
----
-
-# Table des matières
-
-- [À propos](#à-propos)
-- [Pré-requis](#pré-requis)
-- [Application web](#application-web)
-    - [Backend](#backend)
-    - [Frontend](#frontend)
-- [Analyse statistique : pondération du réseau piéton](#analyse-statistique--pondération-du-réseau-piéton)
-
-
-# 🚀 Démarrage rapide
-
-copier le fichier **.env.example** et le renommer en **.env** à la racine du projet. 
-```bash
-cp .env.example .env
-```
-
-télécharger les data de opendata lyon
-```bash
-cd score_calculation_it/input_data
-pip i geopandas owslib
-python fetch_data.py
-# Selectionner l'option WEB_ONLY
-```
-
-lancer le backend et le frontend
-```bash
-docker-compose up
-```
-
-Le frontend est accessible à l'adresse [http://localhost:3000](http://localhost:3000)
-Le backend est accessible à l'adresse [http://localhost:3002](http://localhost:3002)
-
-
-
-# À propos
-
 Le projet "Pause fraîcheur à Villeurbanne est un projet mené par des étudiants du master Géonum (Géographies Numériques) de deuxième année, en partenariat avec la mairie de Villeurbanne.
 L'objectif principal de ce projet est d'apporter une solution d'adaptation à la canicule en proposant une application avec 3 fonctionnalitées principales :
 
@@ -80,9 +41,17 @@ pip install -r requirements.txt
 ## Exécution du code
 **Se placer à la racine du dossier backend**
 
-Avant de lancer le code il est important de télécharger certaines données nécessaires au bon fonctionnement de l'application, et les mettre à leur place
+Avant de lancer le code il est important de télécharger certaines données nécessaires au bon fonctionnement de l'application, et les mettre à leur place : 
+Ombres: "backend\score_calculation_it\input_data\ombre\8h.tif"
+Ombres: "backend\score_calculation_it\input_data\ombre\13h.tif"
+Ombres: "backend\score_calculation_it\input_data\ombre\18h.tif"
+Temperature: "backend\score_calculation_it\input_data\Temperature\villeurbanne25_LST2024_DistTempMean_3946.tiff"
+Végétation stratifié: "backend\score_calculation_it\input_data\Vegetation_strat_Vlb\Vegetation_strat_vlb.shp"
+Mobilier urbain: "backend\score_calculation_it\input_data\Mobilier_urbain\Mobilierurbain.shp"
+Sanitaires: "backend\score_calculation_it\input_data\sanitaires\Sanitaires.shp"
+Parc: "backend\score_calculation_it\input_data\EV_EspaceVert\EV_EspaceVert.shp"
 
-Afin de lancer le backend, se positionner à la racine du dossier backend et exécuter la commande suivante : 
+Afin de lancer le code, se positionner à la racine du dossier backend et exécuter la commande suivante : 
 
 ```bash
 python create_graph.py
@@ -103,8 +72,10 @@ On peut distinguer trois types de données :
 - Les données issus d'OpenStreetMap
 - les données d'ombre issues de ShadeMap
 
+### Le Script
 
-### L'API
+Ce script permet de réaliser un graphe pondéré en fonction de plusieurs données présenté plus haut qui pourra être utilisé pour trouver le plus court
+chemin en fonction des points frais de la ville de Villeurbanne.
 Le script python principal du backend est le fichier **create_graph.py** qui constitue le *endpoint* du backend permettant d'exécuter le calcul de graphe. Avant le lancement du code, vérifier les chemins d'accès au données du fichier **global_variable.py**.
 
 # Pondération du réseau piéton et analyse statistique
@@ -115,30 +86,17 @@ Afin de pouvoir réaliser le calcul de la pondération, il est nécessaire de fa
 Ils correpondent à une version des données de la mairie de Villeurbanne au début de l'année 2026.
 
 ### Le réseau de Villeurbanne
-Cette donnée est indispensable pour la suite (à télécharger en premier lieu donc). Afin de la mettre à jour, exécuter le fichier 
-**fetch_network.py** à partir de *./score_calculation_it/input_data/* et se laisser guider par les instructions du terminal.
-
-```bash
-python fetch_network.py
-```
-
-### Le mobilier urbain
-Actuellement les points d'interêts (POI) ne sont pas pris en compte dans la pondération du graphe, cependant, il existe un fichier **poi_preprocessing.py** permettant de calculer la présence de POI sur les segments. Les résultats pourraient être utilisés dans le cadre d'une amélioration du calculateur d'itinéraire. 
-
-
-### Parcs et Jardins
-Les parcs ont un traitement un peu différents des autres POI, par conséquent, les calculs nécessaire pour le calculateur d'itinéraire peuvent être exécuté via le fichier **parcs_jardins_preprocessing.py**.
-
-### Eaux
-Les cours d'eau ont un traitement un peu différents des autres POI, par conséquent, les calculs nécessaire pour le calculateur d'itinéraire peuvent être exécuté via le fichier **eaux_preprocessing.py** et en se laissant guider par les instructions du terminal.
-
-### La végétation
-La donnée de végétation stratifiée la donnée la plus volumineuse.
-
-### La température
-
-### L'ombre 
+Cette donnée est indispensable récupérer à partir d'OpenStreetMap et le fichier responsable de sa récupération est dans le fichier **fetch_network.py** à partir de *./score_calculation_it/input_data/*.
 
 ## Pondération du graph (calcul du score)
 La pondération du graph ne peut se faire que si l'ensemble des sous-réseaux existent (et ont été mis à jour au besoin). La pondération du graph est à renseigner directement dans le fichier **score_calculation.py**.
+
+Pondération choisi : 
+Arbres/arbuste = 8
+Parc = 3
+Ombre = 10
+Température = 6
+Eau (bornes fontaines, sanitaires) = 7
+Banc, fontaines = 2
+
 
